@@ -1,9 +1,9 @@
 import 'package:easy_localization/easy_localization.dart';
 import 'package:evently_app/providers/app_language_provider.dart';
 import 'package:evently_app/providers/app_theme_provider.dart';
-import 'package:evently_app/ui/authentication/login/forgetPassword_screen.dart';
+import 'package:evently_app/ui/authentication/forgetPassword_screen.dart';
 import 'package:evently_app/ui/authentication/login/login_screen.dart';
-import 'package:evently_app/ui/authentication/login/register_screen.dart';
+import 'package:evently_app/ui/authentication/register_screen.dart';
 import 'package:evently_app/ui/events/add_event.dart';
 import 'package:evently_app/ui/home/tabs/home/home_screen.dart';
 import 'package:evently_app/ui/home/tabs/home/home_screen_b.dart';

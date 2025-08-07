@@ -1,0 +1,232 @@
+import 'package:easy_localization/easy_localization.dart';
+import 'package:evently_app/ui/events/widgets/eventDate_time_widget.dart';
+import 'package:evently_app/ui/home/tabs/home/widget/event_tab_item.dart';
+import 'package:evently_app/ui/home/tabs/widgets/custom_elevated_button.dart';
+import 'package:evently_app/utils/app_styles.dart';
+import 'package:flutter/material.dart';
+
+import '../../utils/app_assets.dart';
+import '../../utils/app_colors.dart';
+import '../home/tabs/widgets/custom_text_form_field.dart';
+
+///create event screen
+class AddEvent extends StatefulWidget {
+  AddEvent({super.key});
+
+  @override
+  State<AddEvent> createState() => _AddEventState();
+}
+
+class _AddEventState extends State<AddEvent> {
+  int selectedIndex = 0;
+  TextEditingController titleController = TextEditingController();
+  TextEditingController descriptionController = TextEditingController();
+  DateTime? selectedDate;
+  String formattedDate = '';
+  TimeOfDay? selectedTime;
+  String formattedTime = '';
+
+  @override
+  Widget build(BuildContext context) {
+    var screenHeight = MediaQuery.of(context).size.height;
+    var screenWidth = MediaQuery.of(context).size.width;
+    List<String> eventsName = [
+      'Sport'.tr(),
+      'Birthday'.tr(),
+      'Meeting'.tr(),
+      'Gaming'.tr(),
+      'WorkShop'.tr(),
+      'BookClub'.tr(),
+      'Exhibition'.tr(),
+      'Holiday'.tr(),
+      'Eating'.tr()
+    ];
+    List<String> eventsImage = [
+      AppAssets.sport_image,
+      AppAssets.birthday_image,
+      AppAssets.meeting_image,
+      AppAssets.gaming_image,
+      AppAssets.workShop_image,
+      AppAssets.bookClub_image,
+      AppAssets.exhibition_image,
+      AppAssets.holiday_image,
+      AppAssets.eating_image
+    ];
+    return Scaffold(
+        appBar: AppBar(
+          backgroundColor: Theme.of(context).scaffoldBackgroundColor,
+          title: Text("Create Event".tr(), style: AppStyles.medium16blue),
+          centerTitle: true,
+          iconTheme: IconThemeData(color: AppColors.bluePrimaryColor),
+        ),
+        body: Padding(
+          padding: EdgeInsets.symmetric(
+              vertical: screenHeight * 0.02, horizontal: screenWidth * 0.04),
+          child: SingleChildScrollView(
+            child: Column(
+              crossAxisAlignment: CrossAxisAlignment.start,
+              children: [
+                ///////////////////event image/////////////////////////////////
+                Container(
+                    clipBehavior: Clip.antiAlias,
+                    decoration: BoxDecoration(
+                      borderRadius: BorderRadius.circular(20),
+                    ),
+                    child: Image.asset(eventsImage[selectedIndex])),
+                SizedBox(height: screenHeight * 0.02),
+                ////////////////tabs using listView and the custom widget event_tab_item////////////////////////////
+                SizedBox(
+                  height: screenHeight * 0.077,
+                  child: ListView.separated(
+                    scrollDirection: Axis.horizontal,
+                    itemCount: eventsName.length,
+                    itemBuilder: (BuildContext context, int index) {
+                      return InkWell(
+                        onTap: () {
+                          selectedIndex = index;
+                          setState(() {});
+                        },
+                        child: EventTabItem(
+                          selectedBgColor: AppColors.bluePrimaryColor,
+                          isSelected: selectedIndex == index,
+                          event: eventsName[index],
+                          borderColor: AppColors.bluePrimaryColor,
+                          selectedTextStyle:
+                              Theme.of(context).textTheme.displayMedium!,
+                          unselectedTextStyle: Theme.of(context)
+                              .textTheme
+                              .labelMedium!
+                              .copyWith(color: AppColors.bluePrimaryColor),
+                        ),
+                      );
+                    },
+                    separatorBuilder: (BuildContext context, int index) {
+                      return SizedBox(width: screenWidth * .001);
+                    },
+                  ),
+                ),
+                ////// /////title text_form_field//////////////////////
+                SizedBox(height: screenHeight * 0.02),
+                Text("Title".tr(),
+                    style: Theme.of(context).textTheme.bodyMedium),
+                SizedBox(height: screenHeight * 0.01),
+                CustomTextFormField(
+                  //todo:controller
+                  controller: titleController,
+                  prefixIcon: Image.asset(
+                    AppAssets.edit_icon,
+                    color: Theme.of(context).disabledColor,
+                  ),
+                  hintText: " Event Title".tr(),
+                  hintStyle: Theme.of(context).textTheme.labelSmall,
+                ),
+                SizedBox(height: screenHeight * 0.02),
+                ///////////////////description text_form_field/////////////////////////////////
+
+                Text("Description".tr(),
+                    style: Theme.of(context).textTheme.bodyMedium),
+                SizedBox(height: screenHeight * 0.01),
+                CustomTextFormField(
+                  //todo:controller
+                  maxLines: 4,
+                  keyboardType: TextInputType.multiline,
+                  controller: descriptionController,
+
+                  hintText: " Event Description".tr(),
+                  hintStyle: Theme.of(context).textTheme.labelSmall,
+                ),
+                SizedBox(height: screenHeight * 0.02),
+                //////////////////////////////////////////////////////////////////////////////////////////
+                EventdateTimeWidget(
+                  calendar_clock_icon: AppAssets.calendar_icon,
+                  event_date_time_text: "Event Date".tr(),
+                  onPressed: chooseDate, //Reference to chooseDate_time function
+                  chooseDate_time_text:
+                      selectedDate == null ? "Choose Date".tr() : formattedDate,
+                ),
+                EventdateTimeWidget(
+                  calendar_clock_icon: AppAssets.clock_icon,
+                  event_date_time_text: "Event Time".tr(),
+                  onPressed: chooseTime, //Reference to chooseDate_time function
+                  chooseDate_time_text:
+                      selectedTime == null ? "Choose Time".tr() : formattedTime,
+                ),
+                SizedBox(height: screenHeight * 0.02),
+                Text("Location".tr(),
+                    style: Theme.of(context).textTheme.bodyMedium),
+                SizedBox(height: screenHeight * 0.01),
+                //////////////////////////////////////////////////////////////////////////////
+                Container(
+                  decoration: BoxDecoration(
+                    borderRadius: BorderRadius.circular(10),
+                    border:
+                        Border.all(color: AppColors.bluePrimaryColor, width: 1),
+                  ),
+                  child: Padding(
+                    padding: EdgeInsets.symmetric(
+                        vertical: screenHeight * 0.01,
+                        horizontal: screenWidth * 0.02),
+                    child: Row(
+                      children: [
+                        Image.asset(
+                          AppAssets.chooseEvent_icon,
+                        ),
+                        SizedBox(width: screenWidth * 0.02),
+                        Text("Choose Event Location".tr(),
+                            style: AppStyles.medium16blue),
+                        Spacer(),
+                        Icon(Icons.navigate_next,
+                            color: AppColors.bluePrimaryColor),
+                      ],
+                    ),
+                  ),
+                ),
+                SizedBox(width: screenHeight * 0.1),
+                Padding(
+                  padding: EdgeInsets.symmetric(vertical: screenHeight * 0.02),
+                  child: Column(
+                    crossAxisAlignment: CrossAxisAlignment.stretch,
+                    children: [
+                      CustomElevatedButton(
+                        onPressed: addEvent,
+                        buttonText: Text("Add Event".tr(),
+                            style: AppStyles.bold20white
+                                .copyWith(fontWeight: FontWeight.w500)),
+                      ),
+                    ],
+                  ),
+                )
+              ],
+            ),
+          ),
+        ));
+  }
+
+////////////choosing date and time functions manually(we can use a package but note to support localization)///////////////////////
+  void chooseDate() async {
+    var chooseDate = await showDatePicker(
+      context: context,
+      initialDate: DateTime.now(),
+      firstDate: DateTime.now(),
+      lastDate: DateTime.now().add(Duration(days: 365)),
+    );
+    selectedDate = chooseDate;
+    formattedDate = DateFormat(' d/M/yyyy').format(selectedDate!);
+    setState(() {});
+  }
+
+  void chooseTime() async {
+    //todo: show date picker
+    var chooseTime = await showTimePicker(
+      context: context,
+      initialTime: TimeOfDay.now(),
+    );
+    selectedTime = chooseTime;
+    formattedTime = selectedTime!.format(context);
+    setState(() {});
+  }
+
+  void addEvent() {
+    //TODO: add event
+  }
+}
