@@ -60,7 +60,7 @@ class MyApp extends StatelessWidget {
         AppRoutes.homeRoute: (context) => HomeScreen(),
         AppRoutes.homeRouteB: (context) => HomeScreenB(),
         AppRoutes.introRoute: (context) => const OnboardingScreen(),
-        AppRoutes.loginRoute: (context) => const LoginScreen(),
+        AppRoutes.loginRoute: (context) => LoginScreen(),
         AppRoutes.registerRoute: (context) => const RegisterScreen(),
         AppRoutes.forgotPasswordRoute: (context) =>
             const ForgetpasswordScreen(),
@@ -69,7 +69,7 @@ class MyApp extends StatelessWidget {
         // AppRoutes.forgotPasswordRoute: (context) => const ForgotPasswordScreen(),
         AppRoutes.profileRoute: (context) => const ProfileTabScreen(),
         AppRoutes.mapRoute: (context) => const MapTabScreen(),
-        AppRoutes.loveRoute: (context) => const LoveTabScreen(),
+        AppRoutes.loveRoute: (context) => LoveTabScreen(),
         AppRoutes.addEventRoute: (context) => AddEvent(),
       },
     );

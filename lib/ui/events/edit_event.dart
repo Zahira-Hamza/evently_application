@@ -111,7 +111,7 @@ class _EditEventState extends State<EditEvent> {
                     style: Theme.of(context).textTheme.bodyMedium),
                 SizedBox(height: screenHeight * 0.01),
                 CustomTextFormField(
-                  controller: titleController,
+                  textEditingController: titleController,
                   prefixIcon: Image.asset(
                     AppAssets.edit_icon,
                     color: Theme.of(context).disabledColor,
@@ -129,7 +129,7 @@ class _EditEventState extends State<EditEvent> {
                   //todo:controller
                   maxLines: 4,
                   keyboardType: TextInputType.multiline,
-                  controller: descriptionController,
+                  textEditingController: descriptionController,
 
                   hintText:
                       " Lorem ipsum dolor sit amet consectetur. Vulputate eleifend suscipit eget neque senectus a. Nulla at non malesuada odio duis lectus amet nisi sit. Risus hac enim maecenas auctor et. At cras massa diam porta facilisi lacus purus. Iaculis eget quis ut amet. Sit ac malesuada nisi quis  feugiat.",

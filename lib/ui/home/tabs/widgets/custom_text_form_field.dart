@@ -18,10 +18,10 @@ class CustomTextFormField extends StatelessWidget {
 
   ///we make it of type widget to have the freedom to send it as icon or image
   OnValidator? validator;
-  TextEditingController controller;
   TextInputType keyboardType;
   bool obscureText;
   String? obscuringCharacter;
+  TextEditingController textEditingController;
   CustomTextFormField(
       {super.key,
       this.borderColor = Colors.grey,
@@ -33,10 +33,10 @@ class CustomTextFormField extends StatelessWidget {
       this.prefixIcon,
       this.suffixIcon,
       this.validator,
-      required this.controller,
-      this.keyboardType = TextInputType.text,
       this.obscureText = false,
-      this.obscuringCharacter});
+      this.obscuringCharacter,
+      required this.textEditingController,
+      this.keyboardType = TextInputType.text});
 
   @override
   Widget build(BuildContext context) {
@@ -53,8 +53,13 @@ class CustomTextFormField extends StatelessWidget {
         labelStyle: labelStyle ?? AppStyles.medium16gray,
         prefixIcon: prefixIcon,
         suffixIcon: suffixIcon,
+        errorStyle:
+            AppStyles.medium16blue.copyWith(color: Colors.red, fontSize: 14),
       ),
       validator: validator,
+      controller: textEditingController,
+      keyboardType: keyboardType,
+      obscureText: obscureText,
     );
   }
 

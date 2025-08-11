@@ -7,7 +7,8 @@ import '../home/widget/event_item.dart';
 import '../widgets/custom_text_form_field.dart';
 
 class LoveTabScreen extends StatelessWidget {
-  const LoveTabScreen({super.key});
+  LoveTabScreen({super.key});
+  TextEditingController searchController = TextEditingController();
 
   @override
   Widget build(BuildContext context) {
@@ -20,11 +21,11 @@ class LoveTabScreen extends StatelessWidget {
             padding: EdgeInsets.symmetric(
                 horizontal: screenWidth * .05, vertical: screenHeight * .02),
             child: CustomTextFormField(
-              controller: TextEditingController(),
               borderColor: AppColors.bluePrimaryColor,
               hintText: "Search For Event".tr(),
               hintStyle: AppStyles.medium16blue.copyWith(fontSize: 14),
               prefixIcon: Icon(Icons.search, color: AppColors.bluePrimaryColor),
+              textEditingController: searchController,
             ),
           ),
           //SizedBox(height: screenHeight * .001),

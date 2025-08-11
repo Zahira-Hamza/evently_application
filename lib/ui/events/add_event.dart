@@ -112,7 +112,7 @@ class _AddEventState extends State<AddEvent> {
                 SizedBox(height: screenHeight * 0.01),
                 CustomTextFormField(
                   //todo:controller
-                  controller: titleController,
+                  textEditingController: titleController,
                   prefixIcon: Image.asset(
                     AppAssets.edit_icon,
                     color: Theme.of(context).disabledColor,
@@ -130,10 +130,10 @@ class _AddEventState extends State<AddEvent> {
                   //todo:controller
                   maxLines: 4,
                   keyboardType: TextInputType.multiline,
-                  controller: descriptionController,
 
                   hintText: " Event Description".tr(),
                   hintStyle: Theme.of(context).textTheme.labelSmall,
+                  textEditingController: descriptionController,
                 ),
                 SizedBox(height: screenHeight * 0.02),
                 //////////////////////////////////////////////////////////////////////////////////////////
